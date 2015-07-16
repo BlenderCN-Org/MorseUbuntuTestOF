@@ -428,6 +428,45 @@ class VideoCamera(SensorCreator):
         """
         self.mesh.hide_render = hide
 
+class Dem2px(SensorCreator):
+    _classpath = "morse.sensors.dem2px.Dem2px"
+    _blendname = "camera"
+    def __init__(self, name=None):
+        SensorCreator.__init__(self, name)
+        self.camera = Camera("CameraRobot")
+        self.camera.name = "CameraRobot"
+        self.append(self.camera)
+        self.properties(cam_width = 152, cam_height = 100, cam_focal = 35.0,
+                        capturing = True, Vertical_Flip = True)
+        # set the frequency to 20 Hz
+        self.frequency(1000)
+        # add toggle capture action (`Space` key)
+        bpymorse.add_sensor(type="KEYBOARD")
+        obj = bpymorse.get_context_object()
+        sensor = obj.game.sensors[-1]
+        sensor.key = 'SPACE'
+        bpymorse.add_controller(type='LOGIC_AND')
+        controller = obj.game.controllers[-1]
+        bpymorse.add_actuator(type='PROPERTY')
+        actuator = obj.game.actuators[-1]
+        actuator.mode = 'TOGGLE'
+        actuator.property = 'capturing'
+        controller.link(sensor = sensor, actuator = actuator)
+        # looking in +X
+        SensorCreator.rotate(self, x=math.pi/2, z=math.pi/2)
+        # append CameraMesh with its textures
+        self.mesh = self.append_meshes(['CameraMesh'], "camera")[0]
+        self.rotate(z=math.pi)
+    def rotate(self, x=0, y=0, z=0):
+        SensorCreator.rotate(self, x=y, y=z, z=x)
+    def hide_mesh(self, hide=True):
+        """ Hide the camera mesh
+
+        Can be used to hide a third person camera attached to a robot.
+        """
+        self.mesh.hide_render = hide
+
+
 class DepthCamera(VideoCamera):
     _classpath = "morse.sensors.depth_camera.DepthCamera"
     _blendname = "camera"

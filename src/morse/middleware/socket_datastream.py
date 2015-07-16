@@ -175,6 +175,7 @@ class SocketDatastreamManager(DatastreamManager):
                 raise MorseMiddlewareError("sync_port is not configured")
             else:
                 self._init_trigger()
+                logger.error("time_sync is activated !!")
 
         # port -> MorseSocketServ
         self._server_dict = {}

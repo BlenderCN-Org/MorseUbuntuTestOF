@@ -98,6 +98,11 @@ class Quadrotor(Robot):
         Robot.__init__(self, "quadrotor_dynamic", name)
         self.properties(classpath = "morse.robots.quadrotor_dynamic.Quadrotor")
 
+class Bee(Robot):
+    def __init__(self, name=None):
+        Robot.__init__(self, "bee", name)
+        self.properties(classpath = "morse.robots.bee.Bee")
+
 class RMax(Robot):
     def __init__(self, name=None):
         Robot.__init__(self, "rmax", name)

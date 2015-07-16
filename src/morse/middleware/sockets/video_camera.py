@@ -21,20 +21,21 @@ class VideoCameraPublisher(SocketPublisher):
         if not self.component_instance.capturing:
             return bytes() # press [Space] key to enable capturing
 
-        image = self.process( self.data['image'] )
+        #image = self.process( self.data['image'] )
 
-        data = base64.b64encode( image ).decode() # get string
-        intrinsic = [ list(vec) for vec in self.data['intrinsic_matrix'] ]
+        #data = base64.b64encode( image ).decode() # get string
+        #intrinsic = [ list(vec) for vec in self.data['intrinsic_matrix'] ]
 
         res = {
-            'timestamp': self.data['timestamp'],
-            'height':    self.component_instance.image_height,
-            'width':     self.component_instance.image_width,
-            'image':     data,
-            'intrinsic_matrix': intrinsic,
+            #'timestamp': self.data['timestamp'],
+            #'height':    self.component_instance.image_height,
+            #'width':     self.component_instance.image_width,
+            #'image':     self.data['scalb']#,
+            #'intrinsic_matrix': intrinsic,
         }
 
-        return (json.dumps(res) + '\n').encode()
+        #return (json.dumps(res) + '\n').encode()
+        return (json.dumps([x for x in self.data['scalb']]) + '\n').encode()
 
 class Video8uPublisher(VideoCameraPublisher):
     """ Publish a base64 encoded grayscale (8U) image """

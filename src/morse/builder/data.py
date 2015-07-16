@@ -342,6 +342,14 @@ MORSE_DATASTREAM_DICT = {
             "pocolibs": 'morse.middleware.pocolibs.sensors.viam.ViamPoster'
             }
         },
+    "morse.sensors.dem2px.Dem2px": {
+        "default": {
+            "ros": 'morse.middleware.ros.video_camera.VideoCameraPublisher',
+            "socket": 'morse.middleware.sockets.video_camera.VideoCameraPublisher',
+            "yarp": 'morse.middleware.yarp.video_camera.YarpImagePublisher',
+            "pocolibs": 'morse.middleware.pocolibs.sensors.viam.ViamPoster'
+            }
+        },
     "morse.sensors.depth_camera.DepthVideoCamera": {
         "default": {
             "ros": 'morse.middleware.ros.video_camera.DepthCameraPublisher',
@@ -471,6 +479,19 @@ MORSE_DATASTREAM_DICT = {
             "yarp": INTERFACE_DEFAULT_IN,
             }
         },
+    "morse.actuators.motion6axes.Motion6axes": {
+        "default": {
+            "socket": INTERFACE_DEFAULT_IN,
+            "yarp": INTERFACE_DEFAULT_IN,
+            }
+        },
+    "morse.actuators.position.Position": {
+        "default": {
+            "socket": INTERFACE_DEFAULT_IN,
+            "yarp": INTERFACE_DEFAULT_IN,
+            }
+        },
+
     "morse.actuators.teleport.Teleport": {
         "default": {
             "ros": 'morse.middleware.ros.read_pose.PoseReader',

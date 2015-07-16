@@ -198,6 +198,18 @@ class MotionXYW(ActuatorCreator):
     def __init__(self, name=None):
         ActuatorCreator.__init__(self, name)
 
+class Motion6axes(ActuatorCreator):
+    _classpath = "morse.actuators.motion6axes.Motion6axes"
+
+    def __init__(self, name=None):
+        ActuatorCreator.__init__(self, name)
+
+class Position(ActuatorCreator):
+    _classpath = "morse.actuators.position.Position"
+
+    def __init__(self, name=None):
+        ActuatorCreator.__init__(self, name)
+
 class Light(ActuatorCreator):
     _classpath = "morse.actuators.light.Light"
     def __init__(self, name=None):

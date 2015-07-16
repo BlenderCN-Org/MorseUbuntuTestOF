@@ -2,6 +2,8 @@ import logging; logger = logging.getLogger("morse." + __name__)
 from morse.core import blenderapi
 import morse.core.sensor
 from morse.helpers.components import add_property
+from math import radians
+from math import tan
 
 def copy_pose(obj_from, obj_to):
     obj_to.worldPosition = obj_from.worldPosition
@@ -44,12 +46,14 @@ class Camera(morse.core.sensor.Sensor):
     #  in the Blender Logic Properties
     add_property('image_width', 256, 'cam_width')
     add_property('image_height', 256, 'cam_height')
-    add_property('image_focal', 25.0, 'cam_focal')
+#    add_property('image_focal', 25.0, 'cam_focal')
+    add_property('image_fov', 65.0, 'cam_fov')
     add_property('near_clipping', 0.1, 'cam_near')
     add_property('far_clipping', 100.0, 'cam_far')
     add_property('vertical_flip', True, 'Vertical_Flip')
     add_property('retrieve_depth', False, 'retrieve_depth')
     add_property('retrieve_zbuffer', False, 'retrieve_zbuffer')
+    #add_property('pixel_number', 6, 'px_number')
 
     def __init__(self, obj, parent=None):
         """ Constructor method.
@@ -199,9 +203,10 @@ class Camera(morse.core.sensor.Sensor):
         vt_camera = blenderapi.texture().Texture(screen, mat_id)
         vt_camera.source = blenderapi.texture().ImageRender(self._scene, camera)
 
-        # Set the focal length of the camera using the Game Logic Property
-        camera.lens = self.image_focal
+        # Set the focal length of the camera using the Game Logic Property and the Field Of View (fov)
+        camera.lens = 32/(2*tan(radians(self.image_fov/2)))
         logger.info("\tFocal length of the camera is: %s" % camera.lens)
+        logger.info("\tField Of View of the camera is: %s" %  self.image_fov)
 
         # Set the clipping distances of the camera using the Game Logic Property
         camera.near = self.near_clipping

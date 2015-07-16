@@ -3,6 +3,7 @@ from morse.core.sensor import Sensor
 from morse.helpers.components import add_data, add_property
 from morse.core import blenderapi
 
+
 class Collision(Sensor):
     """
     Sensor to detect objects colliding with the current object,
@@ -40,4 +41,4 @@ class Collision(Sensor):
         # see hitObjectList and hitObject for last collided object(s)
         self.local_data['collision'] = sensor.positive
         self.local_data['objects'] = ','.join([o.name for o in sensor.hitObjectList])
-        # logger.debug(self.local_data['objects'])
+        #logger.debug(self.local_data['objects'])
